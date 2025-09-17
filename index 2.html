@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Morse Code Converter</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+textarea { width: 300px; height: 100px; margin: 10px 0; }
+button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Morse Code Converter</h1>
+<h2>Text to Morse</h2>
+<textarea id="textInput" placeholder="Enter text"></textarea><br>
+<button onclick="convertToMorse()">Convert to Morse</button>
+<textarea id="morseOutput" readonly placeholder="Morse code will appear here"></textarea>
+<h2>Morse to Text</h2>
+<textarea id="morseInput" placeholder="Enter Morse code"></textarea><br>
+<button onclick="convertToText()">Convert to Text</button>
+<textarea id="textOutput" readonly placeholder="Text will appear here"></textarea>
+<script>
+const morseCode = {
+'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.',
+'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---',
+'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--',
+'Z': '--..', '0': '-----', '1': '.----', '2': '..---',
+'3': '...--', '4': '....-', '5': '.....', '6': '-....',
+'7': '--...', '8': '---..', '9': '----.', ' ': '/'
+};
+function convertToMorse() {
+const text = document.getElementById('textInput').value.toUpperCase();
+const morse = text.split('').map(ch => morseCode[ch] || '').join(' ');
+document.getElementById('morseOutput').value = morse;
+}
+function convertToText() {
+const morse = document.getElementById('morseInput').value.trim();
+const text = morse.split(' ').map(code => Object.keys(morseCode).find(key => morseCode[key] === code) || '').join('');
+document.getElementById('textOutput').value = text;
+}
+</script>
+</body>
+</html>
